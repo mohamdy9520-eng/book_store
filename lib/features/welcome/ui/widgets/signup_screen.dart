@@ -74,7 +74,7 @@ class SignupScreen extends StatelessWidget {
                   SizedBox(height: 20.sp),
 
                   Text(
-                    "OR Sign Up with:",
+                    LocaleKeys.signUpOption.tr(),
                     style:AppTextStyle.hintStyle,
                     textAlign: TextAlign.center,
                   ),

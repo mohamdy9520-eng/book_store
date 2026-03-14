@@ -30,6 +30,6 @@ abstract class  LocaleKeys {
   static const Password_Changed='Password Changed';
   static const Congrats='Your password has been changed successfully.';
   static const Back_to_Login='Back to Login';
-
+  static const signUpOption = 'sign_up_option';
 
 }

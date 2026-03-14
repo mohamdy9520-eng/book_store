@@ -3,14 +3,29 @@ import 'package:book_store/core/widgets/custome_TextForm.dart';
 import 'package:book_store/features/welcome/ui/widgets/forget_password.dart';
 import 'package:book_store/features/welcome/ui/widgets/signup_screen.dart';
 import 'package:book_store/gen/fonts.gen.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../gen/locale_keys.g.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  var emailController=TextEditingController();
+  var passwordController=TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +57,7 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(height: 32.h),
 
                 CustomTextFormField(
+                  controller:emailController,
                   hintText: LocaleKeys.enter_email.tr(),
                   keyboardType: TextInputType.emailAddress,
                 ),
@@ -49,6 +65,7 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(height: 15.h),
 
                 CustomTextFormField(
+                  controller: passwordController,
                   hintText: LocaleKeys.Password.tr(),
                   keyboardType: TextInputType.visiblePassword,
                   isPassword: true,
@@ -82,6 +99,9 @@ class LoginScreen extends StatelessWidget {
 
                 AppButton(
                   text: LocaleKeys.login.tr(),
+                  onTap: ()async{
+                    await login();
+                  },
                 ),
 
                 SizedBox(height: 34.h),
@@ -156,5 +176,19 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  login()async{
+    Dio dio=Dio();
+    final response=await dio.post("https://codingarabic.online/api/login",
+    data: {
+      "email":emailController.text,
+      "password":passwordController.text
+
+    });
+
+    //debugPrint(response.data["data"]["user"]["name"]);
+
+
   }
 }

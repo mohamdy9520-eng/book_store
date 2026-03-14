@@ -21,6 +21,9 @@ class BookStore extends StatelessWidget {
           scaffoldBackgroundColor: Colors.white
         ),
         debugShowCheckedModeBanner: false,
+        onGenerateRoute:(v){
+
+        },
         home:WelcomeScreen() ,
       ),
     );
