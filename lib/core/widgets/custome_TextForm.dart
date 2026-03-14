@@ -1,44 +1,90 @@
+import 'package:book_store/core/theme/app_colors.dart';
+import 'package:book_store/core/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import '../../gen/assets.gen.dart';
 
-class CustomTextFormField extends StatelessWidget {
-  final String? labelText;
-  final String? hintText;
-  final bool obscureText;
-  final IconData? prefixIcon;
+class CustomTextFormField extends StatefulWidget {
+  final String hintText;
   final TextEditingController? controller;
-  final String? Function(String?)? validator;
   final TextInputType keyboardType;
+  final IconData? prefixIcon;
+  final Color? hintColor;
+  final bool isPassword;
 
   const CustomTextFormField({
     super.key,
-    this.labelText,
-    this.hintText,
-    this.obscureText = false,
-    this.prefixIcon,
+    required this.hintText,
     this.controller,
-    this.validator,
     this.keyboardType = TextInputType.text,
+    this.prefixIcon,
+    this.hintColor,
+    this.isPassword = false,
   });
+
+  @override
+  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
+}
+
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
+
+  bool isObsecure = true;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
-      obscureText: obscureText,
-      validator: validator,
-      keyboardType: keyboardType,
+      cursorColor: AppColors.primaryColor,
+      controller: widget.controller,
+      keyboardType: widget.keyboardType,
+      obscureText: widget.isPassword ? isObsecure : false,
+
+      onTapOutside: (v) {
+        FocusScope.of(context).unfocus();
+      },
+
       decoration: InputDecoration(
-        labelText: labelText,
-        hintText: hintText,
-        prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
-        contentPadding: EdgeInsets.symmetric(vertical: 18.h, horizontal: 16.w),
+        suffixIcon: widget.isPassword
+            ? Padding(
+          padding: EdgeInsets.all(8.r),
+          child: InkWell(
+            onTap: () {
+              setState(() {
+                isObsecure = !isObsecure;
+              });
+            },
+            child:isObsecure?Icon(Icons.visibility_off):SvgPicture.asset(Assets.images.visaIcon)
+          ),
+        )
+            : null,
+
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: AppColors.primaryColor),
         ),
-        focusedBorder: OutlineInputBorder(
+
+        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: const BorderSide(color: Colors.blue),
+          borderSide: BorderSide(color: AppColors.borderColor),
+        ),
+
+        hintText: widget.hintText,
+
+        prefixIcon: widget.prefixIcon != null
+            ? Icon(
+          widget.prefixIcon,
+          size: 20.sp,
+        )
+            : null,
+
+        filled: true,
+        fillColor: AppColors.grayColor,
+
+        hintStyle: AppTextStyle.hintStyle,
+
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 16.w,
+          vertical: 18.h,
         ),
       ),
     );

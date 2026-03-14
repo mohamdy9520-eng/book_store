@@ -52,7 +52,7 @@ class WelcomeScreen extends StatelessWidget {
             AppButton(
               text: LocaleKeys.login.tr(),
               onTap: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const LoginScreen()),
                 );
@@ -65,7 +65,7 @@ class WelcomeScreen extends StatelessWidget {
               text: LocaleKeys.signup.tr(),
               backgroundColor: Colors.white,
               onTap: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) =>const SignupScreen()),
                 );

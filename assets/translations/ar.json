@@ -4,10 +4,31 @@
   "orderNow": "احجز كتابك الان!",
   "Welcome back": "مرحبًا بعودتك! سعداء برؤيتك مرة أخرى!",
   "register_greeting": "مرحبًا! أنشئ حسابك للبدء",
-  "Enter your E-Mail": "البريد الالكتروني",
+  "enter_email": "البريد الإلكتروني",
+  "User Name": "اسم المستخدم",
   "Password": "كلمة المرور",
+  "confirm_password": "تأكيد كلمة المرور",
   "Forget Password?": "هل نسيت كلمة المرور",
-  "Don't have an account?Register now!": "ليس لديك حساب؟سجل الان!"
+  "No_Account": "ليس لديك حساب؟سجل الان!",
+  "Already_have_an_account_Login": "لديك حساب بالفعل؟ سجل الدخول الان",
+  "Dont worry It occurs. Please enter the email address linked with your account.": "لا تقلق! هذا يحدث. يرجى إدخال عنوان البريد الإلكتروني المرتبط بحسابك.",
+  "Send Code": "ارسل الرمز",
+  "Remember Password": "تذكرت كلمة السر؟",
+  "OTP Verification": "التأكيد",
+  "Enter the verification code we just sent on your email address.": "أدخل رمز التحقق الذي أرسلناه للتو إلى عنوان بريدك الإلكتروني.",
+  "Verify":"تأكيد",
+  "Didn’t received code?": "لم يصلك الرمز؟",
+  "Create a new Password": "تغيير كلمة المرور",
+  "Your new password must be unique from those previously used.": "يجب أن تكون كلمة المرور الجديدة الخاصة بك فريدة من نوعها وتختلف عن كلمات المرور التي استخدمتها سابقاً.",
+  "New Password": "كلمة السر الجديدة",
+  "Confirm Password": "تأكيد كلمة السر",
+  "Reset Password": "تغيير كلمة السر",
+  "Password Changed": "تم تغيير كلمة المرور بنجاح",
+  "Your password has been changed successfully.": "تم تغيير كلمة المرور",
+  "Back to Login": "العودة لتسجيل الدخول"
+
+
+
 
 
 

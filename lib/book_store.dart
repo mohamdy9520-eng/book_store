@@ -17,7 +17,8 @@ class BookStore extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         theme: ThemeData(
-          fontFamily: "DM"
+          fontFamily: "DM",
+          scaffoldBackgroundColor: Colors.white
         ),
         debugShowCheckedModeBanner: false,
         home:WelcomeScreen() ,

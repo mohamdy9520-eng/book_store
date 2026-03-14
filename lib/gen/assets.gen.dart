@@ -14,6 +14,13 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/Facebook.png
+  AssetGenImage get facebook =>
+      const AssetGenImage('assets/images/Facebook.png');
+
+  /// File path: assets/images/google.png
+  AssetGenImage get google => const AssetGenImage('assets/images/google.png');
+
   /// File path: assets/images/splash.png
   AssetGenImage get splash => const AssetGenImage('assets/images/splash.png');
 
@@ -21,14 +28,20 @@ class $AssetsImagesGen {
   AssetGenImage get splashAndroid12 =>
       const AssetGenImage('assets/images/splash_android12.png');
 
+  /// File path: assets/images/visa_icon.svg
+  String get visaIcon => 'assets/images/visa_icon.svg';
+
   /// File path: assets/images/welcome_background.png
   AssetGenImage get welcomeBackground =>
       const AssetGenImage('assets/images/welcome_background.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [
+  List<dynamic> get values => [
+    facebook,
+    google,
     splash,
     splashAndroid12,
+    visaIcon,
     welcomeBackground,
   ];
 }

@@ -1,4 +1,5 @@
 import 'package:book_store/core/theme/app_colors.dart';
+import 'package:book_store/gen/fonts.gen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,6 +35,8 @@ class AppButton extends StatelessWidget {
           text.tr(),
           style: TextStyle(
             fontSize: 15.sp,
+            fontWeight: FontWeight.w400,
+            fontFamily: FontFamily.dm,
             color: backgroundColor == null ? Colors.white : Colors.black,
           ),
         ),
