@@ -17,8 +17,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  var emailController=TextEditingController();
-  var passwordController=TextEditingController();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
 
   @override
   void dispose() {
@@ -26,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 32.h),
 
                 CustomTextFormField(
-                  controller:emailController,
+                  controller: emailController,
                   hintText: LocaleKeys.enter_email.tr(),
                   keyboardType: TextInputType.emailAddress,
                 ),
@@ -66,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 CustomTextFormField(
                   controller: passwordController,
-                  hintText: LocaleKeys.Password.tr(),
+                  hintText: "Password",
                   keyboardType: TextInputType.visiblePassword,
                   isPassword: true,
                 ),
@@ -99,8 +100,28 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 AppButton(
                   text: LocaleKeys.login.tr(),
-                  onTap: ()async{
-                    await login();
+                  onTap: () async {
+                    String email = emailController.text;
+                    String password = passwordController.text;
+
+                    RegExp passwordRegex = RegExp(
+                        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$');
+
+                    if (email.isEmpty || password.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Email and Password cannot be empty"),
+                        ),
+                      );
+                    } else if (!passwordRegex.hasMatch(password)) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("incorrect password"),
+                        ),
+                      );
+                    } else {
+                      await login();
+                    }
                   },
                 ),
 
@@ -117,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   textAlign: TextAlign.center,
                 ),
 
-                SizedBox(height: 21.h,),
+                SizedBox(height: 21.h),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -163,7 +184,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SignupScreen()),
+                          MaterialPageRoute(
+                              builder: (context) => SignupScreen()),
                         );
                       },
                       child: Text(LocaleKeys.signup.tr()),
@@ -178,17 +200,14 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  login()async{
-    Dio dio=Dio();
-    final response=await dio.post("https://codingarabic.online/api/login",
-    data: {
-      "email":emailController.text,
-      "password":passwordController.text
-
-    });
-
-    //debugPrint(response.data["data"]["user"]["name"]);
-
-
+  login() async {
+    Dio dio = Dio();
+    final response = await dio.post(
+      "https://codingarabic.online/api/login",
+      data: {
+        "email": emailController.text,
+        "password": passwordController.text
+      },
+    );
   }
 }

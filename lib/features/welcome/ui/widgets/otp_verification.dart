@@ -71,7 +71,7 @@ class _OtpState extends State<Otp> {
                   text: LocaleKeys.OTP_Verification.tr(),
                   onTap:(){
                     Navigator.push(context,
-                        MaterialPageRoute(builder:(context)=>const CreateNewPassword()));
+                        MaterialPageRoute(builder:(context)=> CreateNewPassword()));
                   },
                 ),
 
