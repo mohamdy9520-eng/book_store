@@ -4,6 +4,5 @@
 ![readme_images](assets/readme_images/4.png)
 ![readme_images](assets/readme_images/5.png)
 ![readme_images](assets/readme_images/6.png)
-![readme_images](assets/readme_images/7.png)
 ![readme_images](assets/readme_images/8.png)
 ![readme_images](assets/readme_images/9.png)
