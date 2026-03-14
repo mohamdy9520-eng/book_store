@@ -1,1 +1,1 @@
-![Login Screen](assets/readme_images/1)
+(assets/readme_images)
