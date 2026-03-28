@@ -1,7 +1,7 @@
 import 'package:book_store/core/theme/app_colors.dart';
 import 'package:book_store/core/theme/app_text_style.dart';
 import 'package:book_store/core/widgets/app_buttom.dart';
-import 'package:book_store/features/welcome/ui/widgets/create_new_password.dart';
+import 'package:book_store/features/authentication/create_new_password.dart';
 import 'package:book_store/gen/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';

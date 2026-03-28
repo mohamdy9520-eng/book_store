@@ -1,7 +1,10 @@
-import 'package:book_store/features/welcome/ui/welcome_screen.dart';
+import 'package:book_store/core/helper/app_constants.dart';
+import 'package:book_store/features/bottom_nav_bar/ui/bottom_nav_bar_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'features/authentication/welcome_screen.dart';
 
 class BookStore extends StatelessWidget {
   const BookStore({super.key});
@@ -27,5 +30,13 @@ class BookStore extends StatelessWidget {
         home:WelcomeScreen() ,
       ),
     );
+  }
+
+  Widget startScreen(){
+    if(AppConstants.token==null){
+      return WelcomeScreen();
+    }else{
+      return BottomNavBarScreen();
+    }
   }
 }

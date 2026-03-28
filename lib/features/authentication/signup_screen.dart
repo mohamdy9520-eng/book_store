@@ -1,8 +1,8 @@
 import 'package:book_store/core/theme/app_text_style.dart';
 import 'package:book_store/core/widgets/app_buttom.dart';
 import 'package:book_store/core/widgets/custome_TextForm.dart';
-import 'package:book_store/features/welcome/ui/widgets/login_screen.dart';
-import 'package:book_store/features/welcome/ui/widgets/password_changed.dart';
+import 'package:book_store/features/authentication/login_screen.dart';
+import 'package:book_store/features/authentication/password_changed.dart';
 import 'package:book_store/gen/fonts.gen.dart';
 import 'package:book_store/gen/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';

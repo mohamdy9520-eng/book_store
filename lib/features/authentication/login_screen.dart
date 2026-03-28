@@ -1,12 +1,17 @@
+import 'package:book_store/core/routes/routes.dart';
+import 'package:book_store/core/theme/app_colors.dart';
 import 'package:book_store/core/widgets/app_buttom.dart';
 import 'package:book_store/core/widgets/custome_TextForm.dart';
-import 'package:book_store/features/welcome/ui/widgets/forget_password.dart';
-import 'package:book_store/features/welcome/ui/widgets/signup_screen.dart';
+import 'package:book_store/features/authentication/forget_password.dart';
+import 'package:book_store/features/authentication/signup_screen.dart';
+import 'package:book_store/features/bottom_nav_bar/ui/bottom_nav_bar_screen.dart';
+import 'package:book_store/features/cubit/auth_cubit.dart';
 import 'package:book_store/gen/fonts.gen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import '../../../../gen/locale_keys.g.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../gen/locale_keys.g.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -54,26 +59,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: const Color(0xff2F2F2F),
                   ),
                 ),
-
                 SizedBox(height: 32.h),
-
                 CustomTextFormField(
                   controller: emailController,
                   hintText: LocaleKeys.enter_email.tr(),
                   keyboardType: TextInputType.emailAddress,
                 ),
-
                 SizedBox(height: 15.h),
-
                 CustomTextFormField(
                   controller: passwordController,
                   hintText: "Password",
                   keyboardType: TextInputType.visiblePassword,
                   isPassword: true,
                 ),
-
                 SizedBox(height: 13.h),
-
                 Align(
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
@@ -95,51 +94,69 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-
                 SizedBox(height: 62.h),
-
-                AppButton(
-                  text: LocaleKeys.login.tr(),
-                  onTap: () async {
-                    String email = emailController.text;
-                    String password = passwordController.text;
-
-                    RegExp passwordRegex = RegExp(
-                        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$');
-
-                    if (email.isEmpty || password.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Email and Password cannot be empty"),
+                BlocListener<AuthCubit, AuthState>(
+                  listener: (context, state) {
+                    if (state is AuthLoadingState) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => Center(
+                          child: SizedBox(
+                            width: 30.w,
+                            height: 30.h,
+                            child: CircularProgressIndicator(
+                                color: AppColors.primaryColor),
+                          ),
                         ),
                       );
-                    } else if (!passwordRegex.hasMatch(password)) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("incorrect password"),
+                    } else if (state is AuthErrorState) {
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text("Error"),
+                          content: const Text(
+                              "Something Wrong Happened, Please Try Again!"),
                         ),
                       );
-                    } else {
-                      await login();
+                    } else if (state is AuthSuccessState) {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>BottomNavBarScreen()));
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, Routes.bottomNavBarScreen, (route) => false);
                     }
                   },
+                  child: AppButton(
+                    text: LocaleKeys.login.tr(),
+                    onTap: () async {
+                      String email = emailController.text.trim();
+                      String password = passwordController.text.trim();
+
+                      if (email.isEmpty || password.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Email and Password cannot be empty"),
+                          ),
+                        );
+                      } else {
+                        context
+                            .read<AuthCubit>()
+                            .login(email: email, password: password);
+                      }
+                    },
+                  ),
                 ),
-
                 SizedBox(height: 34.h),
-
                 Text(
                   "OR",
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 14.sp,
                     fontFamily: FontFamily.dm,
-                    color: Color(0xff6A707C),
+                    color: const Color(0xff6A707C),
                   ),
                   textAlign: TextAlign.center,
                 ),
-
                 SizedBox(height: 21.h),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -173,9 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-
                 SizedBox(height: 84.h),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -205,8 +220,8 @@ class _LoginScreenState extends State<LoginScreen> {
     final response = await dio.post(
       "https://codingarabic.online/api/login",
       data: {
-        "email": emailController.text,
-        "password": passwordController.text
+        "email": emailController.text.trim(),
+        "password": passwordController.text.trim()
       },
     );
   }
