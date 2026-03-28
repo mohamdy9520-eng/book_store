@@ -27,7 +27,7 @@ class BookStore extends StatelessWidget {
         onGenerateRoute:(v){
 
         },
-        home:WelcomeScreen() ,
+          home: startScreen(),
       ),
     );
   }
