@@ -2,8 +2,9 @@ import 'package:book_store/core/routes/routes.dart';
 import 'package:book_store/features/bottom_nav_bar/ui/bottom_nav_bar_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../features/authentication/login_screen.dart';
-import '../../features/authentication/signup_screen.dart';
+import '../../authentication/login_screen.dart';
+import '../../authentication/signup_screen.dart';
+
 
 class AppRouter {
   Route? onGenerateRoute(RouteSettings settings) {

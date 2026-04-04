@@ -1,5 +1,6 @@
 import 'package:book_store/book_store.dart';
 import 'package:book_store/core/helper/app_constants.dart';
+import 'package:book_store/core/networking/dio.helper.dart';
 import 'package:book_store/features/cubit/auth_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,7 +11,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  DioHelper.init();
   AppConstants.token=prefs.getString("token");
+
 
 
   runApp(

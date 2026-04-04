@@ -1,10 +1,8 @@
+import 'package:book_store/authentication/signup_screen.dart';
 import 'package:book_store/core/routes/routes.dart';
 import 'package:book_store/core/theme/app_colors.dart';
 import 'package:book_store/core/widgets/app_buttom.dart';
 import 'package:book_store/core/widgets/custome_TextForm.dart';
-import 'package:book_store/features/authentication/forget_password.dart';
-import 'package:book_store/features/authentication/signup_screen.dart';
-import 'package:book_store/features/bottom_nav_bar/ui/bottom_nav_bar_screen.dart';
 import 'package:book_store/features/cubit/auth_cubit.dart';
 import 'package:book_store/gen/fonts.gen.dart';
 import 'package:dio/dio.dart';
@@ -13,6 +11,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../gen/locale_keys.g.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'forget_password.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -120,16 +120,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       );
                     } else if (state is AuthSuccessState) {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>BottomNavBarScreen()));
+                      Navigator.pop(context);
                       Navigator.pushNamedAndRemoveUntil(
-                          context, Routes.bottomNavBarScreen, (route) => false);
+                        context,
+                        Routes.bottomNavBarScreen,
+                            (route) => false,
+                      );
                     }
                   },
                   child: AppButton(
                     text: LocaleKeys.login.tr(),
                     onTap: () async {
-                      String email = emailController.text.trim();
-                      String password = passwordController.text.trim();
+                      String email = emailController.text.tr();
+                      String password = passwordController.text.tr();
 
                       if (email.isEmpty || password.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(

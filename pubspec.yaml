@@ -36,12 +36,17 @@ dependencies:
   easy_localization: ^3.0.8
   flutter_gen: ^5.12.0
   google_sign_in: ^6.1.2
-  flutter_facebook_auth: ^5.0.0
-  flutter_svg: ^1.1.6
+  flutter_facebook_auth: ^7.1.6
+  flutter_svg: ^2.0.10
   pinput: ^6.0.2
   dio: ^5.9.2
   flutter_bloc: ^9.1.1
   shared_preferences: ^2.5.5
+  carousel_slider: ^5.1.2
+  smooth_page_indicator: ^2.0.1
+  gap: ^3.0.1
+
+
 
 
 
@@ -51,6 +56,7 @@ dev_dependencies:
   build_runner: ^2.12.2
   flutter_gen_runner: ^5.13.0
   flutter_native_splash: ^2.4.7
+  pretty_dio_logger: ^1.4.0
 
 
 
@@ -75,6 +81,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
    - assets/images/
+   - assets/icons/
    - assets/translations/
 
 

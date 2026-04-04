@@ -31,5 +31,6 @@ abstract class  LocaleKeys {
   static const Congrats='Your password has been changed successfully.';
   static const Back_to_Login='Back to Login';
   static const signUpOption = 'sign_up_option';
+  static const RegisterNow='Hello! Register to get started';
 
 }

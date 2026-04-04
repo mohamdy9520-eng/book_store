@@ -12,6 +12,8 @@ class CustomTextFormField extends StatefulWidget {
   final IconData? prefixIcon;
   final Color? hintColor;
   final bool isPassword;
+  final String? Function(String?)? validator;
+
 
   const CustomTextFormField({
     super.key,
@@ -21,6 +23,7 @@ class CustomTextFormField extends StatefulWidget {
     this.prefixIcon,
     this.hintColor,
     this.isPassword = false,
+    this.validator,
   });
 
   @override
@@ -38,6 +41,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       controller: widget.controller,
       keyboardType: widget.keyboardType,
       obscureText: widget.isPassword ? isObsecure : false,
+      validator: widget.validator,
 
       onTapOutside: (v) {
         FocusScope.of(context).unfocus();

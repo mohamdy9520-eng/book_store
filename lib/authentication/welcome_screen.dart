@@ -1,5 +1,5 @@
+import 'package:book_store/authentication/signup_screen.dart';
 import 'package:book_store/core/widgets/app_buttom.dart';
-import 'package:book_store/features/authentication/signup_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:book_store/gen/assets.gen.dart';
