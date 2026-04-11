@@ -1,4 +1,7 @@
 
+import 'dart:math';
+
+import 'package:book_store/features/home/data/models/best_seller_response.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/networking/api_constants.dart';
@@ -24,6 +27,20 @@ class HomeRepo {
     }
 
 
+
+  }
+  static Future<BestSellerResponse?> getBestSeller()async{
+    try{
+      final response=await DioHelper.dio?.get(ApiConstants.bestSeller);
+      if(response?.statusCode==200){
+        BestSellerResponse data=BestSellerResponse.fromJson(response?.data);
+        return data;
+      }else{
+        return null;
+      }
+    }catch(e){
+      return null;
+    }
   }
 
 }

@@ -48,6 +48,20 @@ class AppTextStyle {
 
   );
 
+  static TextStyle Price=TextStyle(
+      fontFamily: FontFamily.dm,
+      fontWeight: FontWeight.w400,
+      fontSize: 16.sp
+
+  );
+
+  static TextStyle Button=TextStyle(
+      fontFamily: FontFamily.dm,
+      fontWeight: FontWeight.w400,
+      fontSize: 20.sp
+
+  );
+
 
 
 

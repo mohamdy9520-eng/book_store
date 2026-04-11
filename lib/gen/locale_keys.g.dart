@@ -32,5 +32,10 @@ abstract class  LocaleKeys {
   static const Back_to_Login='Back to Login';
   static const signUpOption = 'sign_up_option';
   static const RegisterNow='Hello! Register to get started';
+  static const Best_Seller= "Best Seller";
+  static const Buy= "Buy";
+  static const Cart= "Cart";
+  static const profile= "Profile";
+  static const home= "Home";
 
 }

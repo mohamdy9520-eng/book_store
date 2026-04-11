@@ -13,6 +13,7 @@ class CustomTextFormField extends StatefulWidget {
   final Color? hintColor;
   final bool isPassword;
   final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
 
 
   const CustomTextFormField({
@@ -24,6 +25,7 @@ class CustomTextFormField extends StatefulWidget {
     this.hintColor,
     this.isPassword = false,
     this.validator,
+    this.onChanged,
   });
 
   @override
@@ -37,6 +39,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: widget.onChanged,
       cursorColor: AppColors.primaryColor,
       controller: widget.controller,
       keyboardType: widget.keyboardType,

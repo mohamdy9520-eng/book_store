@@ -1,3 +1,4 @@
+import 'package:book_store/features/home/ui/home_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -139,18 +140,16 @@ class _SignupScreenState extends State<SignupScreen> {
 
                             return AppButton(
                               text: LocaleKeys.signup.tr(),
-                              onTap: () {
-                                if (formKey.currentState!.validate()) {
-                                  context.read<SignupCubit>().submit(
-                                    userName:
-                                    userNameController.text.tr(),
-                                    email: emailController.text.tr(),
-                                    password: passwordController.text,
-                                    confirmPassword:
-                                    confirmPasswordController.text,
-                                  );
+                                onTap: () {
+                                  if (formKey.currentState!.validate()) {
+                                    context.read<SignupCubit>().submit(
+                                      userName: userNameController.text,
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                      confirmPassword: confirmPasswordController.text,
+                                    );
+                                  }
                                 }
-                              },
                             );
                           },
                         ),
@@ -200,7 +199,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const LoginScreen(),
+                                    builder: (context) => const HomeScreen(),
                                   ),
                                 );
                               },

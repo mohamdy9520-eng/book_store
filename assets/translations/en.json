@@ -27,7 +27,12 @@
   "Your password has been changed successfully.": "Your password has been changed successfully.",
   "Back to Login": "Back to Login",
   "sign_up_option": "OR Sign Up with:",
-  "Hello! Register to get started": "Hello! Register to get started"
+  "Hello! Register to get started": "Hello! Register to get started",
+  "Best Seller": "Best Seller",
+  "Buy": "Buy",
+  "Cart": "Cart",
+  "profile": "Profile",
+  "home": "Home"
 
 
 }

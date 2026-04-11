@@ -12,3 +12,15 @@ final class HomeSuccessState extends HomeState {
 
 final class HomeErrorState  extends HomeState {}
 final class HomeLoadingState extends HomeState {}
+final class BestSellerErrorState extends HomeState {}
+final class BestSellerSuccessState extends HomeState {
+
+  final List<Product>? products;
+
+  BestSellerSuccessState(this.products);
+}
+final class BestSellerLoadingState extends HomeState {}
+
+final class AddToCartSuccessState extends HomeState {}
+final class AddToCartLoadingState extends HomeState {}
+final class AddToCartErrorState extends HomeState {}
