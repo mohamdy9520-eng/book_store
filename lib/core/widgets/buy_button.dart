@@ -1,9 +1,14 @@
-import 'package:book_store/core/theme/app_colors.dart';
-import 'package:book_store/core/theme/product_TextStyle.dart';
+import 'package:book_store/features/cart/model/cart_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class BuyButton extends StatelessWidget{
+import '../../features/cart/cubit/cart_cubit.dart';
+import '../theme/app_colors.dart';
+import '../theme/product_TextStyle.dart';
+
+class BuyButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
   final Color? backgroundColor;
@@ -12,30 +17,36 @@ class BuyButton extends StatelessWidget{
   final double? height;
   final double borderRadius;
 
-   BuyButton({
+
+  const BuyButton({
     super.key,
     required this.text,
     required this.onTap,
     this.width,
     this.height,
     this.backgroundColor,
-    this.borderRadius=4,
-    this.textColor
-});
+    this.textColor,
+    this.borderRadius = 4,
+  });
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 72.2275390625.w,
-        height: 27.90070915222168.h,
-        alignment:Alignment.bottomLeft,
+        width: width ?? 72.w,
+        height: height ?? 28.h,
+        alignment: Alignment.center,
         decoration: BoxDecoration(
-          color:AppColors.buyBottonColor,
-          borderRadius: BorderRadiusGeometry.circular(4.r)
+          color: backgroundColor ?? AppColors.buyBottonColor,
+          borderRadius: BorderRadius.circular(borderRadius.r),
         ),
-        child: Center(child: Text("Buy",style: ProductTextstyle.buy))
-
+        child: Text(
+          text,
+          style: ProductTextstyle.buy.copyWith(
+            color: textColor ?? Colors.white,
+          ),
+        ),
       ),
     );
   }

@@ -17,7 +17,17 @@ final class CartSuccess extends CartState {
    CartSuccess([this.message = 'Success']);
 }
 
+
 final class CartError extends CartState {
   final String message;
-   CartError(this.message);
+   CartError({this.message="Failed"});
+}
+
+class RemoveFromCartLoadingState extends CartState {}
+
+class RemoveFromCartSuccessState extends CartState {}
+
+class RemoveFromCartErrorState extends CartState {
+  final String message;
+  RemoveFromCartErrorState(this.message);
 }

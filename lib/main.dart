@@ -35,7 +35,9 @@ void main() async {
           BlocProvider(
             create: (context) => HomeCubit(),
           ),
-          BlocProvider(create: (context)=>CartCubit())
+          BlocProvider(
+            create: (_) => CartCubit(),
+          )
         ],
         child: const BookStore(),
       ),

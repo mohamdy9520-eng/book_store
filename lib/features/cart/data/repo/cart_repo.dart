@@ -1,6 +1,5 @@
 import 'package:book_store/core/networking/api_constants.dart';
 import 'package:book_store/core/networking/dio.helper.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class CartRepo {
 

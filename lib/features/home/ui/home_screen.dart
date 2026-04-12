@@ -28,6 +28,7 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 31.h),
 
             Text("Best Seller", style: AppTextStyle.headline),
+
             BlocBuilder<HomeCubit,HomeState>(
                 buildWhen:(prev,current)=>current is BestSellerSuccessState|| current is HomeLoadingState|| current is BestSellerErrorState,
                 builder:(context,state){
