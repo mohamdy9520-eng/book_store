@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
+
+import '../data/lottie/cached_lottie.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -49,8 +52,27 @@ class CartScreen extends StatelessWidget {
               );
 
               if (items.isEmpty) {
-                return const Center(
-                  child: Text("Your cart is empty"),
+                return Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        width: 200.w,
+                        height: 200.h,
+                        child: CachedLottie(url: "https://lottie.host/498504e4-1bd0-4c4c-aa31-6a2548aa1a7e/sdB7sHX5nf.json",
+                        width: 200.w,
+                        height: 200.w)
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        "Your cart is empty!",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               }
 
@@ -62,86 +84,103 @@ class CartScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final item = items[index];
 
-                        return Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 16.w,
-                            vertical: 8.h,
-                          ),
-                          child: Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade100,
-                              borderRadius: BorderRadius.circular(12),
+                        return Dismissible(
+                            key: ValueKey(item.id),
+                          direction: DismissDirection.endToStart,
+                          confirmDismiss: (direction) async {
+                            context.read<CartCubit>().removeFromCartById(item.id);
+                            return true;
+                          },
+                          background: Container(
+                            alignment: Alignment.centerRight,
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
+                            color: Colors.red,
+                            child: const Icon(
+                              Icons.delete,
+                              color: Colors.white,
                             ),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(
-                                    item.imageUrl,
-                                    width: 70.w,
-                                    height: 70.h,
-                                    fit: BoxFit.cover,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 16.w,
+                              vertical: 8.h,
+                            ),
+                            child: Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade100,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(
+                                      item.imageUrl,
+                                      width: 70.w,
+                                      height: 70.h,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return const Icon(Icons.image_not_supported);
+                                      },
+                                    ),
                                   ),
-                                ),
-                                SizedBox(width: 12.w),
+                                  SizedBox(width: 12.w),
 
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          item.name,
+                                          style: TextStyle(fontSize: 16.sp,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+
+                                        SizedBox(height: 6.h),
+
+                                        Text(
+                                          "\$${item.price}",
+                                          style: TextStyle(fontSize: 14.sp,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                  Row(
                                     children: [
-                                      Text(
-                                        item.name,
-                                        style: TextStyle(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                                      IconButton(
+                                        onPressed: () {
+                                          if (item.quantity > 1) {
+                                            context
+                                                .read<CartCubit>()
+                                                .updateQuantity(
+                                              item.id,
+                                              item.quantity - 1,
+                                            );
+                                          }
+                                        },
+                                        icon: const Icon(Icons.remove),
                                       ),
-                                      SizedBox(height: 6.h),
-                                      Text(
-                                        "\$${item.price}",
-                                        style: TextStyle(
-                                          fontSize: 14.sp,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        if (item.quantity > 1) {
+                                      Text("${item.quantity}"),
+                                      IconButton(
+                                        onPressed: () {
                                           context
                                               .read<CartCubit>()
                                               .updateQuantity(
-                                            index,
-                                            item.quantity - 1,
+                                            item.id,
+                                            item.quantity + 1,
                                           );
-                                        }
-                                      },
-                                      icon: const Icon(Icons.remove),
-                                    ),
-
-                                    Text("${item.quantity}"),
-
-                                    IconButton(
-                                      onPressed: () {
-                                        context
-                                            .read<CartCubit>()
-                                            .updateQuantity(
-                                          index,
-                                          item.quantity + 1,
-                                        );
-                                      },
-                                      icon: const Icon(Icons.add),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                        },
+                                        icon: const Icon(Icons.add),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );
@@ -184,7 +223,9 @@ class CartScreen extends StatelessWidget {
                             ),
                           ],
                         ),
+
                         SizedBox(height: 12.h),
+
                         SizedBox(
                           width: double.infinity,
                           height: 55.h,

@@ -106,11 +106,12 @@ class ProductItem extends StatelessWidget {
               if (product == null) return;
               context.read<CartCubit>().addToCart(
                 CartItem(
-                  id: product!.id.toString(),
+                  id:product!.id??0,
                   name: product!.name ?? "",
                   price: double.tryParse(product!.price ?? "0") ?? 0,
                   imageUrl: product!.image ?? "",
                   quantity: 1,
+                  product:product!.name??"",
                 ),
               );
             },

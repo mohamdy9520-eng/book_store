@@ -1,12 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:book_store/features/cart/model/cart_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 
 part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
-  CartCubit() : super(CartInitial());
+  CartCubit() : super(CartLoaded([]));
 
   List<CartItem> cartItems = [];
 
@@ -28,21 +27,22 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  void removeFromCart(int productId) {
+  void removeFromCartById(int id) {
     try {
-      cartItems.removeWhere((item) => item.id == productId);
-      emit(CartLoaded(cartItems));
+      cartItems.removeWhere((item) => item.id == id);
+      emit(CartLoaded(List.from(cartItems)));
     } catch (e) {
       emit(CartError(message: e.toString()));
     }
   }
 
-  void updateQuantity(int index, int newQuantity) {
-    final item = cartItems[index];
+  void updateQuantity(int id, int quantity) {
+    final index = cartItems.indexWhere((e) => e.id == id);
 
-    cartItems[index] = item.copyWith(quantity: newQuantity);
-
-    emit(CartLoaded(cartItems));
+    if (index != -1) {
+      cartItems[index].quantity = quantity;
+      emit(CartLoaded(List.from(cartItems)));
+    }
   }
 
   double get totalPrice {
