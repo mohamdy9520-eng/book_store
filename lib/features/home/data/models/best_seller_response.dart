@@ -32,6 +32,7 @@ class BestSellerData{
 class Product{
   int? id;
   String? name;
+  String?title;
   String? description;
   String? price;
   num? discount;
@@ -40,15 +41,27 @@ class Product{
   String? image;
   String? category;
 
-  Product.fromJson(Map<String, dynamic>json){
-    id=json['id'];
-    name=json['name'];
-    description=json['description'];
-    price=json['price'];
-    discount=json['discount'];
-    priceAfterDiscount=json['price_after_discount'];
-    stock=json['stock'];
-    image=json['image'];
-    category=json['category'];
+  Product.fromJson(Map<String, dynamic>tojson){
+    id=tojson['id'];
+    title=tojson['title'];
+    name=tojson['name'];
+    description=tojson['description'];
+    price=tojson['price'];
+    discount=tojson['discount'];
+    priceAfterDiscount=tojson['price_after_discount'];
+    stock=tojson['stock'];
+    image=tojson['image'];
+    category=tojson['category'];
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "title": title,
+      "image": image,
+      "price": price,
+      "description": description,
+      "category": category,
+    };
   }
 }
