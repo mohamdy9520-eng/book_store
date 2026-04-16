@@ -17,17 +17,34 @@ class $AssetsIconsGen {
   /// File path: assets/icons/Bookmark.svg
   String get bookmark => 'assets/icons/Bookmark.svg';
 
-  /// File path: assets/icons/cart.svg
-  String get frame15 => 'assets/icons/cart.svg';
-
   /// File path: assets/icons/Home.svg
   String get home => 'assets/icons/Home.svg';
 
   /// File path: assets/icons/Profile.svg
   String get profile => 'assets/icons/Profile.svg';
 
+  /// File path: assets/icons/cart.svg
+  String get cart => 'assets/icons/cart.svg';
+
+  /// File path: assets/icons/close.svg
+  String get close => 'assets/icons/close.svg';
+
+  /// File path: assets/icons/farme15.svg
+  String get farme15 => 'assets/icons/farme15.svg';
+
+  /// File path: assets/icons/search-normal.svg
+  String get searchNormal => 'assets/icons/search-normal.svg';
+
   /// List of all assets
-  List<String> get values => [bookmark, frame15, home, profile];
+  List<String> get values => [
+    bookmark,
+    home,
+    profile,
+    cart,
+    close,
+    farme15,
+    searchNormal,
+  ];
 }
 
 class $AssetsImagesGen {
@@ -69,6 +86,16 @@ class $AssetsImagesGen {
   ];
 }
 
+class $AssetsLottieGen {
+  const $AssetsLottieGen();
+
+  /// File path: assets/lottie/cart_empty.json
+  String get cartEmpty => 'assets/lottie/cart_empty.json';
+
+  /// List of all assets
+  List<String> get values => [cartEmpty];
+}
+
 class $AssetsTranslationsGen {
   const $AssetsTranslationsGen();
 
@@ -87,6 +114,7 @@ class Assets {
 
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsLottieGen lottie = $AssetsLottieGen();
   static const $AssetsTranslationsGen translations = $AssetsTranslationsGen();
 }
 

@@ -1,5 +1,6 @@
 import 'package:book_store/features/cart/cubit/cart_cubit.dart';
 import 'package:book_store/features/cart/model/cart_model.dart';
+import 'package:book_store/features/place_yourOrder/ui/place_your_order.dart';
 import 'package:book_store/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -237,12 +238,22 @@ class CartScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(4.r),
                               ),
                             ),
-                            child: Text(
-                              "Checkout",
-                              style: TextStyle(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PlaceYourOrder(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                "Checkout",
+                                style: TextStyle(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),

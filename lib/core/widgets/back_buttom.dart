@@ -21,7 +21,7 @@ class BackButton extends StatelessWidget {
 
         ),
           color: iconColor,
-        child: Icon(Icons.arrow_back),
+        child: Icon(Icons.arrow_back_ios),
       ),
     );
   }

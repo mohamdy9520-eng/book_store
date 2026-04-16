@@ -34,7 +34,7 @@ class WishlistScreen extends StatelessWidget {
                    repeat: true
                    ),
                      SizedBox(height: 20.h),
-                     
+
                      Text("No Items Here",
                        style: AppTextStyle.hintStyle.copyWith(fontSize: 24.sp),)
                    ],
@@ -42,64 +42,81 @@ class WishlistScreen extends StatelessWidget {
                );
              }
 
-             return ListView.builder(
-               padding: EdgeInsets.all(16),
+             return GridView.builder(
+               padding: EdgeInsets.all(16.w),
                itemCount: items.length,
-               itemBuilder: (context,index){
-                 final item=items[index];
+               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                 crossAxisCount: 2,
+                 crossAxisSpacing: 12.w,
+                 mainAxisSpacing: 12.h,
+                 childAspectRatio: 0.55,
+               ),
+               itemBuilder: (context, index) {
+                 final item = items[index];
 
                  return Container(
-                   margin: const EdgeInsets.only(bottom: 12),
-                   padding: const EdgeInsets.all(10),
+                   padding: EdgeInsets.all(10.w),
                    decoration: BoxDecoration(
-                       borderRadius: BorderRadius.circular(12.r),
-                       border: Border.all(color: Colors.grey.shade300)
+                     borderRadius: BorderRadius.circular(12.r),
+                     border: Border.all(color: Colors.grey.shade300),
                    ),
-                   child: Row(
+                   child: Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
                      children: [
-                       ClipRRect(
-                         borderRadius: BorderRadius.circular(8.r),
-                         child: Image.network(item.image,
-                         height: 80.h,
-                         width: 60.w,
-                         fit: BoxFit.cover
+                       Expanded(
+                         child: ClipRRect(
+                           borderRadius: BorderRadius.circular(8.r),
+                           child: Image.network(
+                             item.image,
+                             width: double.infinity,
+                             fit: BoxFit.cover,
+                           ),
                          ),
                        ),
 
-                       SizedBox(width: 12.w),
+                       SizedBox(height: 6.h),
 
-                       Expanded(
-                         child: Column(
-                           crossAxisAlignment: CrossAxisAlignment.start,
-                           children: [
-                             Text(
-                              item.name,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold
-                              ),
-                             ),
 
-                             SizedBox(height:6.h),
+                       Text(
+                         item.name,
+                         maxLines: 2,
+                         overflow: TextOverflow.ellipsis,
+                         style: TextStyle(
+                           fontWeight: FontWeight.bold,
+                           fontSize: 13.sp,
+                         ),
+                       ),
 
-                             Text("₹${item.price}",
-                               style:const TextStyle(
-                                   color:Colors.green
+                       SizedBox(height: 4.h),
+
+
+                       Row(
+                         children: [
+                           Expanded(
+                             child: Text(
+                               "₹${item.price}",
+                               style: TextStyle(
+                                 color: Colors.green,
+                                 fontSize: 13.sp,
                                ),
                              ),
-                           ],
-                         ),
+                           ),
+
+                           GestureDetector(
+                             onTap: () {
+                               context.read<WishlistCubit>().remove(item.id);
+                             },
+                             child: Icon(
+                               Icons.delete,
+                               color: Colors.red,
+                               size: 20.sp,
+                             ),
+                           ),
+                         ],
                        ),
-                       IconButton(
-                         icon: const Icon(Icons.delete, color:Colors.red),
-                         onPressed: (){
-                           context.read<WishlistCubit>().remove(item.id);
-                         },
-                       )
                      ],
                    ),
-                 );
+                 );;
                },
              );
            }

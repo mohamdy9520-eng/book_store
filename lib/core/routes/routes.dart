@@ -3,4 +3,5 @@ class Routes {
   static const String registerScreen = "register";
   static const String bottomNavBarScreen = "bottomNavBar";
   static const String searchScreen="searchScreen";
+  static const String welcomeScreen="WelcomeScreen";
 }

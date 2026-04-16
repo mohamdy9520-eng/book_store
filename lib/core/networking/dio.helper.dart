@@ -7,15 +7,29 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 class DioHelper {
   static Dio? dio;
 
-  static init() {
+  static void init() {
     dio = Dio(
       BaseOptions(
         baseUrl: ApiConstants.baseUrl,
-
         headers: {
-          "Authorization": "Bearer ${AppConstants.token}",
           "Content-Type": "application/json",
           "Accept": "application/json",
+        },
+      ),
+    );
+
+    dio?.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          final token = AppConstants.token;
+
+          print("TOKEN => $token");
+
+          if (token != null && token.isNotEmpty) {
+            options.headers["Authorization"] = "Bearer $token";
+          }
+
+          return handler.next(options);
         },
       ),
     );

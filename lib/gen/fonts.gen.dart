@@ -13,4 +13,10 @@ class FontFamily {
 
   /// Font family: DM
   static const String dm = 'DM';
+
+  /// Font family: Merriweather
+  static const String merriweather = 'Merriweather';
+
+  /// Font family: Nunito
+  static const String nunito = 'Nunito';
 }

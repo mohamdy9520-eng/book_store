@@ -14,6 +14,7 @@ import 'features/wishlist/cubit/wishlist_cubit.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   AppConstants.token=prefs.getString("token");
   DioHelper.init();

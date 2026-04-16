@@ -44,7 +44,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
         colorFilter: ColorFilter.mode(activeIndex==0?AppColors.primaryColor:Colors.grey, BlendMode.srcIn)),label:"Home"),
         BottomNavigationBarItem(icon:SvgPicture.asset(Assets.icons.bookmark,
     colorFilter: ColorFilter.mode(activeIndex==0?AppColors.primaryColor:Colors.grey, BlendMode.srcIn)),label:"WishList"),
-        BottomNavigationBarItem(icon:SvgPicture.asset(Assets.icons.frame15),label:"Cart"),
+        BottomNavigationBarItem(icon:SvgPicture.asset(Assets.icons.cart),label:"Cart"),
         BottomNavigationBarItem(icon:SvgPicture.asset(Assets.icons.profile),label:"Profile")
       ],
       currentIndex: activeIndex,

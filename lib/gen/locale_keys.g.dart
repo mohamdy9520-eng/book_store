@@ -37,5 +37,6 @@ abstract class  LocaleKeys {
   static const Cart= "Cart";
   static const profile= "Profile";
   static const home= "Home";
+  static const Submit_Order="Submit Order";
 
 }

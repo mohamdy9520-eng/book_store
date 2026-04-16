@@ -9,6 +9,8 @@ class AppButton extends StatelessWidget {
   final VoidCallback? onTap;
   final String text;
   final TextEditingController? controller;
+  final double? fontSize;
+  final VoidCallback? onPressed;
 
   const AppButton({
     super.key,
@@ -16,6 +18,8 @@ class AppButton extends StatelessWidget {
     this.onTap,
     required this.text,
     this.controller,
+    this.fontSize,
+    this.onPressed
   });
 
   @override
@@ -34,7 +38,7 @@ class AppButton extends StatelessWidget {
         child: Text(
           text.tr(),
           style: TextStyle(
-            fontSize: 15.sp,
+            fontSize:fontSize?? 15.sp,
             fontWeight: FontWeight.w400,
             fontFamily: FontFamily.dm,
             color: backgroundColor == null ? Colors.white : Colors.black,
