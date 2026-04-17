@@ -27,39 +27,39 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
 
   List<Widget>screens=[
     BlocProvider(
-  create: (context) => HomeCubit()..getSlider()..getBestSeller(),
-  child: HomeScreen(),
-),
+      create: (context) => HomeCubit()..getSlider()..getBestSeller(),
+      child: HomeScreen(),
+    ),
     WishlistScreen(),
     CartScreen(),
-    ProfileScreen()
+    ProfileScreen(),
   ];
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(items: [
-        BottomNavigationBarItem(icon:SvgPicture.asset(Assets.icons.home,
-        colorFilter: ColorFilter.mode(activeIndex==0?AppColors.primaryColor:Colors.grey, BlendMode.srcIn)),label:"Home"),
-        BottomNavigationBarItem(icon:SvgPicture.asset(Assets.icons.bookmark,
-    colorFilter: ColorFilter.mode(activeIndex==0?AppColors.primaryColor:Colors.grey, BlendMode.srcIn)),label:"WishList"),
-        BottomNavigationBarItem(icon:SvgPicture.asset(Assets.icons.cart),label:"Cart"),
-        BottomNavigationBarItem(icon:SvgPicture.asset(Assets.icons.profile),label:"Profile")
-      ],
-      currentIndex: activeIndex,
-      onTap: (index){
-        setState(() {
-          activeIndex=index;
-        });
-      },
-          selectedItemColor:AppColors.primaryColor,
-      type: BottomNavigationBarType.fixed),
+        bottomNavigationBar: BottomNavigationBar(items: [
+          BottomNavigationBarItem(icon:SvgPicture.asset(Assets.icons.home,
+              colorFilter: ColorFilter.mode(activeIndex==0?AppColors.primaryColor:Colors.grey, BlendMode.srcIn)),label:"Home"),
+          BottomNavigationBarItem(icon:SvgPicture.asset(Assets.icons.bookmark,
+              colorFilter: ColorFilter.mode(activeIndex==0?AppColors.primaryColor:Colors.grey, BlendMode.srcIn)),label:"WishList"),
+          BottomNavigationBarItem(icon:SvgPicture.asset(Assets.icons.cart),label:"Cart"),
+          BottomNavigationBarItem(icon:SvgPicture.asset(Assets.icons.profile),label:"Profile")
+        ],
+            currentIndex: activeIndex,
+            onTap: (index){
+              setState(() {
+                activeIndex=index;
+              });
+            },
+            selectedItemColor:AppColors.primaryColor,
+            type: BottomNavigationBarType.fixed),
 
-      body:SafeArea(child: Padding(
-        padding:EdgeInsets.symmetric(horizontal:12.w),
-        child: screens[activeIndex],
-      ))
+        body:SafeArea(child: Padding(
+          padding:EdgeInsets.symmetric(horizontal:12.w),
+          child: screens[activeIndex],
+        ))
     );
   }
 }

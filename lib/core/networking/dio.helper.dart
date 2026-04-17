@@ -1,8 +1,8 @@
-import 'package:book_store/core/helper/app_constants.dart';
 import 'package:book_store/core/networking/api_constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DioHelper {
   static Dio? dio;
@@ -20,10 +20,11 @@ class DioHelper {
 
     dio?.interceptors.add(
       InterceptorsWrapper(
-        onRequest: (options, handler) {
-          final token = AppConstants.token;
+        onRequest: (options, handler) async {
+          final prefs = await SharedPreferences.getInstance();
+          final token = prefs.getString('token');
 
-          print("TOKEN => $token");
+          print("TOKEN from SharedPreferences => $token");
 
           if (token != null && token.isNotEmpty) {
             options.headers["Authorization"] = "Bearer $token";
@@ -44,12 +45,6 @@ class DioHelper {
         compact: true,
         maxWidth: 90,
         enabled: kDebugMode,
-        filter: (options, args) {
-          if (options.path.contains('/posts')) {
-            return false;
-          }
-          return !args.isResponse || !args.hasUint8ListData;
-        },
       ),
     );
   }

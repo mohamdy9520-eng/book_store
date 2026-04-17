@@ -1,12 +1,13 @@
 import 'package:book_store/core/routes/routes.dart';
 import 'package:book_store/features/bottom_nav_bar/ui/bottom_nav_bar_screen.dart';
+import 'package:book_store/features/profile/ui/profile_screen.dart';
 import 'package:book_store/features/search_screen/cubit/search_cubit.dart';
 import 'package:book_store/features/search_screen/ui/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../authentication/login_screen.dart';
 import '../../authentication/signup_screen.dart';
+import '../../features/profile/cubit/profile_cubit.dart';
 
 
 class AppRouter {
@@ -30,6 +31,14 @@ class AppRouter {
           builder: (_) => BlocProvider(
             create: (_) => SearchCubit(),
             child: SearchScreen(),
+          ),
+        );
+
+      case Routes.profileScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+          create: (_) => ProfileCubit()..getUserData(),
+            child:ProfileScreen(),
           ),
         );
 

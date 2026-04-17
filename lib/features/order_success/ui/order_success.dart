@@ -1,4 +1,5 @@
 import 'package:book_store/core/widgets/app_buttom.dart';
+import 'package:book_store/features/home/ui/home_screen.dart';
 import 'package:book_store/features/order_success/cubit/order_success_cubit.dart';
 import 'package:book_store/features/order_success/cubit/order_success_state.dart';
 import 'package:book_store/gen/fonts.gen.dart';
@@ -82,10 +83,9 @@ class OrderSuccess extends StatelessWidget{
                               borderRadius: BorderRadius.circular(8.r),
                             ),
                           ),
-                          onPressed: () {
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              "home", (route) => false,
+                          onPressed: ()async {
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder:(context)=>HomeScreen())
                             );
                           },
                           child: Text(

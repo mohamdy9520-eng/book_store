@@ -1,5 +1,4 @@
 import 'package:book_store/core/theme/app_text_style.dart';
-import 'package:book_store/core/widgets/app_buttom.dart';
 import 'package:book_store/core/widgets/custome_TextForm.dart';
 import 'package:book_store/features/order_success/ui/order_success.dart';
 import 'package:book_store/features/place_yourOrder/cubit/place_your_order_cubit.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../core/networking/dio.helper.dart';
 import '../../cart/cubit/cart_cubit.dart';
 import '../governorate/cubit/govornorate_cubit.dart';
 import '../governorate/cubit/govornorate_state.dart';
@@ -34,7 +34,13 @@ class PlaceYourOrder extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text("Order Placed Successfully")),
             );
-            Navigator.pop(context);
+
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const OrderSuccess(),
+              ),
+            );
           }
 
           if (state is PlaceOrderError) {
@@ -96,7 +102,6 @@ class PlaceYourOrder extends StatelessWidget {
                         hintText: "Phone",
                       ),
                       SizedBox(height: 12.h),
-
                       DropdownButtonFormField<String>(
                         value: cubit.governorate,
                         hint: Text(
@@ -132,17 +137,14 @@ class PlaceYourOrder extends StatelessWidget {
                             value: gov.governorateNameEn,
                             child: Text(gov.governorateNameEn),
                           );
-                        }).toList()
-                            : [],
+                        }).toList() : [],
                         onChanged: (value) {
                           if (value != null) {
                             cubit.changeGovernorate(value);
                           }
                         },
                       ),
-
                       SizedBox(height: 123.h),
-
                       Row(
                         mainAxisAlignment:
                         MainAxisAlignment.spaceBetween,
@@ -170,19 +172,16 @@ class PlaceYourOrder extends StatelessWidget {
 
                       InkWell(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => OrderSuccess(),
-                            ),
-                          );
+                          if (cubit.formKey.currentState!.validate()) {
+                            cubit.placeOrder(total: total);
+                          }
                         },
                         child: Container(
                           width: 331.w,
                           height: 56.h,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8.r),
-                            color: Color(0xffBFA054),
+                            color: const Color(0xffBFA054),
                           ),
                           child: Center(
                             child: Text(

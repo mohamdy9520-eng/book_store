@@ -20,8 +20,6 @@ void main() async {
   DioHelper.init();
 
 
-
-
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],

@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/networking/dio.helper.dart';
 import '../model/placeYourOrder_model.dart';
 import 'place_your_order_state.dart';
 
@@ -30,14 +31,12 @@ class PlaceOrderCubit extends Cubit<PlaceOrderState> {
     final prefs = await SharedPreferences.getInstance();
 
     List<String> orders = prefs.getStringList(ordersKey) ?? [];
-
     orders.add(jsonEncode(order.toJson()));
 
     await prefs.setStringList(ordersKey, orders);
   }
 
-  Future<void> submitOrder(double total) async {
-    print("Submit Order clicked");
+  Future<void> placeOrder({required double total}) async {
     if (!formKey.currentState!.validate()) {
       emit(PlaceOrderError("Please fill all fields"));
       return;
@@ -51,6 +50,18 @@ class PlaceOrderCubit extends Cubit<PlaceOrderState> {
     emit(PlaceOrderLoading());
 
     try {
+      await DioHelper.dio!.post(
+        "place-order",
+        data: {
+          "name": nameController.text,
+          "email": emailController.text,
+          "address": addressController.text,
+          "phone": phoneController.text,
+          "governorate": governorate,
+          "total": total,
+        },
+      );
+
       final order = OrderModel(
         name: nameController.text,
         email: emailController.text,
@@ -64,7 +75,7 @@ class PlaceOrderCubit extends Cubit<PlaceOrderState> {
 
       emit(PlaceOrderSuccess());
     } catch (e) {
-      emit(PlaceOrderError("Something went wrong"));
+      emit(PlaceOrderError(e.toString()));
     }
   }
 
