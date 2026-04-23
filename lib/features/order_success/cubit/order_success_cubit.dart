@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
-
 import '../../../core/networking/dio.helper.dart';
 import '../model/order_SuccessModel.dart';
 import 'order_success_state.dart';
@@ -12,7 +11,7 @@ class OrderSuccessCubit extends Cubit<OrderSuccessState> {
     emit(OrderSuccessLoading());
 
     try {
-      final response = await DioHelper.dio!.get("checkout");
+      final response = await DioHelper.dio!.get("/checkout");
 
       final data = OrderSuccessModel.fromJson(response.data);
 

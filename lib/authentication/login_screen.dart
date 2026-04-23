@@ -5,7 +5,6 @@ import 'package:book_store/core/widgets/app_buttom.dart';
 import 'package:book_store/core/widgets/custome_TextForm.dart';
 import 'package:book_store/features/cubit/auth_cubit.dart';
 import 'package:book_store/gen/fonts.gen.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -94,7 +93,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
+
                 SizedBox(height: 62.h),
+
                 BlocListener<AuthCubit, AuthState>(
                   listener: (context, state) {
                     if (state is AuthLoadingState) {
@@ -141,9 +142,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
                       } else {
-                        context
-                            .read<AuthCubit>()
-                            .login(email: email, password: password);
+                        context.read<AuthCubit>().loginWithFirebase(
+                          email: email,
+                          password: password,
+                        );
                       }
                     },
                   ),
@@ -215,17 +217,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  login() async {
-    Dio dio = Dio();
-    final response = await dio.post(
-      "https://codingarabic.online/api/login",
-      data: {
-        "email": emailController.text.trim(),
-        "password": passwordController.text.trim()
-      },
     );
   }
 }

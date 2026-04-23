@@ -2,45 +2,39 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../core/networking/dio.helper.dart';
 import '../data/profile_model.dart';
 import 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(ProfileInitial());
 
-  final Dio dio = Dio();
-
   Future<void> getUserData() async {
     emit(ProfileLoading());
 
     try {
-      print("🔥 getUserData CALLED");
-
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString("token");
 
-      print("TOKEN => $token");
+      if (token == null) {
+        emit(ProfileError(message: "Token not found"));
+        return;
+      }
 
-      final response = await dio.get(
-        "https://codingarabic.online/api/profile",
-        options: Options(
-          headers: {
-            "Authorization": "Bearer $token",
-            "Accept": "application/json",
-          },
-        ),
+      final response = await DioHelper.getData(
+        endPoint: "profile",
+        token: token,
+        url: '',
       );
-
-      print("RESPONSE => ${response.data}");
 
       final user = UserModel.fromJson(response.data["data"]);
 
-      prefs.setString("user", jsonEncode(user.toJson()));
+      await prefs.setString("user", jsonEncode(user.toJson()));
 
       emit(ProfileLoaded(user));
 
-    } catch (e) {
-      print("PROFILE ERROR FULL => $e");
+    } on DioException catch (e) {
+      print("DIO ERROR => ${e.response?.data}");
 
       final prefs = await SharedPreferences.getInstance();
       final cachedData = prefs.getString("user");
@@ -49,15 +43,54 @@ class ProfileCubit extends Cubit<ProfileState> {
         final user = UserModel.fromJson(jsonDecode(cachedData));
         emit(ProfileLoaded(user));
       } else {
-        emit(ProfileError());
+        emit(ProfileError(message: "Network error"));
       }
+
+    } catch (e) {
+      emit(ProfileError(message: "Unexpected error"));
+    }
+  }
+
+  Future<void> updateProfile({
+    required String name,
+    required String email,
+  }) async {
+    emit(ProfileLoading());
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString("token");
+
+      if (token == null) {
+        emit(ProfileError(message: "Token not found"));
+        return;
+      }
+
+      await DioHelper.putData(
+        "profile",
+        {
+          "name": name,
+          "email": email,
+        },
+        token!, url: '',
+        endPoint: 'profile',
+        token:token!,
+      );
+
+      await getUserData();
+
+    } on DioException catch (e) {
+      emit(ProfileError(
+        message: e.response?.data["message"] ?? "Update failed",
+      ));
+    } catch (e) {
+      emit(ProfileError(message: "Unexpected error"));
     }
   }
 
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove("user");
-    await prefs.remove("token");
+    await prefs.clear();
 
     emit(ProfileInitial());
   }

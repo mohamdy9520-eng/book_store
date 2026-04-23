@@ -33,11 +33,10 @@ class ProfileScreen extends StatelessWidget {
 
                 Navigator.pushNamedAndRemoveUntil(
                   context,
-                  '/login',
-                      (route) => false,
+                  '/login', (route) => false,
                 );
               },
-              icon: const Icon(Icons.logout),
+              icon: InkWell(child: const Icon(Icons.logout)),
             )
           ],
         ),

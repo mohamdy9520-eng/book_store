@@ -33,6 +33,18 @@ class CartItem {
       product:product?? this.product
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "name": name,
+      "price": price,
+      "quantity": quantity,
+      "imageUrl": imageUrl,
+      "product": product,
+    };
+  }
 }
+
 
 

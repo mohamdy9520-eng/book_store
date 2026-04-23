@@ -1,24 +1,31 @@
-import 'package:book_store/book_store.dart';
-import 'package:book_store/core/helper/app_constants.dart';
-import 'package:book_store/core/networking/dio.helper.dart';
-import 'package:book_store/features/cart/cubit/cart_cubit.dart';
+import 'package:book_store/authentication/login_screen.dart';
+import 'package:book_store/authentication/welcome_screen.dart';
 import 'package:book_store/features/cubit/auth_cubit.dart';
+import 'package:book_store/features/home/ui/home_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'book_store.dart';
+import 'core/networking/dio.helper.dart';
+import 'features/cart/cubit/cart_cubit.dart';
 import 'features/home/cubit/home_cubit.dart';
 import 'features/wishlist/cubit/wishlist_cubit.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   await EasyLocalization.ensureInitialized();
 
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  AppConstants.token=prefs.getString("token");
   DioHelper.init();
 
+  final user = FirebaseAuth.instance.currentUser;
 
   runApp(
     EasyLocalization(
@@ -27,26 +34,15 @@ void main() async {
       fallbackLocale: const Locale('en'),
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(
-            create: (context) => AuthCubit(),
-          ),
-          BlocProvider(
-            create: (context) => HomeCubit(),
-          ),
-          BlocProvider(
-            create: (_) => CartCubit(),
-          ),
-          BlocProvider(create: (_) => WishlistCubit()),BlocProvider(
-            create: (context) => WishlistCubit(),
-            child: BookStore(),
-          )
-
+          BlocProvider(create: (context)=>AuthCubit()),
+          BlocProvider(create: (context) => HomeCubit()),
+          BlocProvider(create: (_) => CartCubit()),
+          BlocProvider(create: (_) => WishlistCubit()),
         ],
-        child: const BookStore(),
+        child: BookStore(
+          startWidget: user != null ? const HomeScreen() : const WelcomeScreen(),
+        ),
       ),
     ),
   );
 }
-
-//flutter pub run easy_localization:generate -S assets/translations -O lib/gen/ -o locale_keys.g.dart -f keys
-//dart run build_runner build --delete-conflicting-outputs

@@ -1,3 +1,4 @@
+import 'package:book_store/features/cubit/auth_cubit.dart';
 import 'package:book_store/features/home/ui/home_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -138,18 +139,29 @@ class _SignupScreenState extends State<SignupScreen> {
                               return const CircularProgressIndicator();
                             }
 
-                            return AppButton(
-                              text: LocaleKeys.signup.tr(),
-                                onTap: () {
-                                  if (formKey.currentState!.validate()) {
-                                    context.read<SignupCubit>().submit(
-                                      userName: userNameController.text,
-                                      email: emailController.text,
-                                      password: passwordController.text,
-                                      confirmPassword: confirmPasswordController.text,
-                                    );
+                            return BlocListener<AuthCubit, AuthState>(
+                              listener: (context, state) {
+                                if(state is AuthSuccessState){
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                                        (route) => false,
+                                  );                                }
+
+                              },
+                              child: AppButton(
+                                  text: LocaleKeys.signup.tr(),
+                                  onTap: () {
+                                    if (formKey.currentState!.validate()) {
+                                      context.read<SignupCubit>().submit(
+                                        userName: userNameController.text,
+                                        email: emailController.text,
+                                        password: passwordController.text,
+                                        confirmPassword: confirmPasswordController.text,
+                                      );
+                                    }
                                   }
-                                }
+                              ),
                             );
                           },
                         ),
@@ -167,7 +179,9 @@ class _SignupScreenState extends State<SignupScreen> {
                         Column(
                           children: [
                             ElevatedButton.icon(
-                              onPressed: () {},
+                              onPressed: () {
+                                context.read<AuthCubit>().signInWithGoogle();
+                              },
                               icon: Image.asset(
                                 'assets/images/google.png',
                                 width: 24,

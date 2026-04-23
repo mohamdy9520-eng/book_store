@@ -1,4 +1,3 @@
-import 'package:book_store/core/networking/api_constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -10,8 +9,9 @@ class DioHelper {
   static void init() {
     dio = Dio(
       BaseOptions(
-        baseUrl: ApiConstants.baseUrl,
+        baseUrl:"https://codingarabic.online/api/",
         headers: {
+          "Authorization": "Bearer YOUR_TOKEN",
           "Content-Type": "application/json",
           "Accept": "application/json",
         },
@@ -24,9 +24,7 @@ class DioHelper {
           final prefs = await SharedPreferences.getInstance();
           final token = prefs.getString('token');
 
-          print("TOKEN from SharedPreferences => $token");
-
-          if (token != null && token.isNotEmpty) {
+          if (token != null) {
             options.headers["Authorization"] = "Bearer $token";
           }
 
@@ -40,12 +38,55 @@ class DioHelper {
         requestHeader: true,
         requestBody: true,
         responseBody: true,
-        responseHeader: false,
         error: true,
         compact: true,
         maxWidth: 90,
         enabled: kDebugMode,
       ),
+    );
+  }
+
+  static Future<Response> getData({
+    required String endPoint,
+    Map<String, dynamic>? query, required String token, required String url,
+  }) async {
+    return await dio!.get(
+      endPoint,
+      queryParameters: query,
+    );
+  }
+
+  static Future<Response> postData({
+    required String endPoint,
+    Map<String, dynamic>? data,
+    Map<String, dynamic>? query,
+  }) async {
+    return await dio!.post(
+      endPoint,
+      data: data,
+      queryParameters: query,
+    );
+  }
+
+  static Future<Response> putData(String s, Map<String, String>name, email, {
+    required String endPoint,
+    Map<String, dynamic>? data,
+    Map<String, dynamic>? query, required String url, required String token,
+  }) async {
+    return await dio!.put(
+      endPoint,
+      data: data,
+      queryParameters: query,
+    );
+  }
+
+  static Future<Response> deleteData({
+    required String endPoint,
+    Map<String, dynamic>? query, required String url,
+  }) async {
+    return await dio!.delete(
+      endPoint,
+      queryParameters: query,
     );
   }
 }

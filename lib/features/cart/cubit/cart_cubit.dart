@@ -1,6 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:book_store/features/cart/model/cart_model.dart';
+import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
+
+import '../../../core/networking/dio.helper.dart';
 
 part 'cart_state.dart';
 
@@ -9,7 +12,7 @@ class CartCubit extends Cubit<CartState> {
 
   List<CartItem> cartItems = [];
 
-  void addToCart(CartItem item) {
+  Future<void> addToCart(CartItem item) async {
     try {
       final index = cartItems.indexWhere((e) => e.id == item.id);
 
@@ -25,6 +28,25 @@ class CartCubit extends Cubit<CartState> {
     } catch (e) {
       emit(CartError(message: "Failed to add item to cart."));
     }
+
+    await DioHelper.postData(
+      data: {
+        "CartItem":CartItem
+      }, endPoint: '',
+    );
+
+    Future<void> removeItem(int id) async {
+      try {
+        await DioHelper.deleteData(
+          url: "cart/$id", endPoint: '',
+        );
+        getCart();
+      } catch (e) {
+        emit(CartError());
+      }
+    }
+
+
   }
 
   void removeFromCartById(int id) {
@@ -51,4 +73,18 @@ class CartCubit extends Cubit<CartState> {
           (sum, item) => sum + (item.price * item.quantity),
     );
   }
-}
+
+  Future<void> getCart() async {
+    emit(CartLoading());
+
+    try {
+      final response = await Dio().get("api/cart");
+
+      emit(CartLoaded(response.data));
+    } catch (e) {
+      emit(CartError());
+    }
+  }
+
+
+    }

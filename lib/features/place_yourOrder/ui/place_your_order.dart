@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../core/networking/dio.helper.dart';
 import '../../cart/cubit/cart_cubit.dart';
 import '../governorate/cubit/govornorate_cubit.dart';
 import '../governorate/cubit/govornorate_state.dart';
 import '../governorate/model/api_servuce.dart';
+import '../governorate/model/gov_nerate.dart';
 
 class PlaceYourOrder extends StatelessWidget {
   const PlaceYourOrder({super.key});
@@ -61,6 +61,7 @@ class PlaceYourOrder extends StatelessWidget {
               backgroundColor: Colors.white,
               elevation: 0,
             ),
+
             body: Padding(
               padding: const EdgeInsets.all(22),
               child: Form(
@@ -82,72 +83,70 @@ class PlaceYourOrder extends StatelessWidget {
                         style: AppTextStyle.hintStyle,
                       ),
                       SizedBox(height: 25.h),
+
                       CustomTextFormField(
                         controller: cubit.nameController,
                         hintText: "Full Name",
                       ),
                       SizedBox(height: 12.h),
+
                       CustomTextFormField(
                         controller: cubit.emailController,
                         hintText: "Email",
                       ),
                       SizedBox(height: 12.h),
+
                       CustomTextFormField(
                         controller: cubit.addressController,
                         hintText: "Address",
                       ),
                       SizedBox(height: 12.h),
+
                       CustomTextFormField(
                         controller: cubit.phoneController,
                         hintText: "Phone",
                       ),
+
                       SizedBox(height: 12.h),
-                      DropdownButtonFormField<String>(
-                        value: cubit.governorate,
+
+                      DropdownButtonFormField<Governorate>(
+                        value: cubit.selectedGovernorate,
+                        validator: (value) {
+                          if (value == null) {
+                            return "Please select governorate";
+                          }
+                          return null;
+                        },
                         hint: Text(
                           "Select Governorate",
                           style: TextStyle(fontSize: 15.sp),
                         ),
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 16.w,
-                            vertical: 14.h,
-                          ),
-                          filled: true,
-                          fillColor: Colors.grey.shade100,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.r),
-                            borderSide: BorderSide.none,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.r),
-                            borderSide:
-                            BorderSide(color: Colors.grey.shade300),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.r),
-                            borderSide:
-                            const BorderSide(color: Colors.blue),
-                          ),
-                        ),
-                        icon: const Icon(Icons.keyboard_arrow_down),
+
                         items: (govState is GovSuccess)
                             ? govState.governorates.map((gov) {
-                          return DropdownMenuItem<String>(
-                            value: gov.governorateNameEn,
+                          return DropdownMenuItem<Governorate>(
+                            value: gov,
                             child: Text(gov.governorateNameEn),
                           );
-                        }).toList() : [],
+                        }).toList()
+                            : [],
+
                         onChanged: (value) {
                           if (value != null) {
-                            cubit.changeGovernorate(value);
+                            cubit.selectedGovernorate = value;
+
+                            cubit.governorateId = value.id;
+                            cubit.governorate = value.governorateNameEn;
+
+                            cubit.changeGovernorate(value.governorateNameEn);
                           }
                         },
                       ),
+
                       SizedBox(height: 123.h),
+
                       Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             "Total:",

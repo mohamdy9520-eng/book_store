@@ -5,4 +5,5 @@ class Routes {
   static const String searchScreen="searchScreen";
   static const String welcomeScreen="WelcomeScreen";
   static const String profileScreen="ProfileScreen";
+  static const String homeScreen="HomeScreen";
 }
