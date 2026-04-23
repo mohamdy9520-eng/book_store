@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "230544696248",
+    "project_id": "bookia-edb87",
+    "storage_bucket": "bookia-edb87.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230544696248:android:1055186bb79336d640654d",
+        "android_client_info": {
+          "package_name": "com.example.book_store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "230544696248-1kn7dhf8h3sguca7ilcnrvjivb14uoo3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.book_store",
+            "certificate_hash": "b12168fb6b0d4e1c77baaefa589b2f7cd5705408"
+          }
+        },
+        {
+          "client_id": "230544696248-s6nbb9g6anrvc0qphke5dikrm9468lr0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCy59WmcSPVTHXueNf6Vtu1TrQVPmprEnk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "230544696248-s6nbb9g6anrvc0qphke5dikrm9468lr0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "230544696248-12luj14290dfm87l7n4047cluum2tg5c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bookStore"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
