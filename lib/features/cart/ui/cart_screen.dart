@@ -47,9 +47,7 @@ class CartScreen extends StatelessWidget {
               final items = state.items;
 
               final total = items.fold<double>(
-                0,
-                    (sum, item) =>
-                sum + (item.price.toDouble() * item.quantity),
+                0, (sum, item) => sum + (item.price.toDouble() * item.quantity),
               );
 
               if (items.isEmpty) {
@@ -62,13 +60,13 @@ class CartScreen extends StatelessWidget {
                         height: 200.h,
                         child: CachedLottie(url: "https://lottie.host/498504e4-1bd0-4c4c-aa31-6a2548aa1a7e/sdB7sHX5nf.json",
                         width: 200.w,
-                        height: 200.w)
+                        height: 200.h)
                       ),
-                      const SizedBox(height: 10),
-                      const Text(
+                       SizedBox(height: 10.h),
+                       Text(
                         "Your cart is empty!",
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 24.sp,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -110,12 +108,12 @@ class CartScreen extends StatelessWidget {
                               padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
                                 color: Colors.grey.shade100,
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(12.r),
                               ),
                               child: Row(
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
+                                    borderRadius: BorderRadius.circular(8.r),
                                     child: Image.network(
                                       item.imageUrl,
                                       width: 70.w,
@@ -191,11 +189,11 @@ class CartScreen extends StatelessWidget {
 
                   Container(
                     padding: const EdgeInsets.all(16),
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: Colors.white,
                       boxShadow: [
                         BoxShadow(
-                          blurRadius: 10,
+                          blurRadius: 10.r,
                           color: Colors.black12,
                         )
                       ],

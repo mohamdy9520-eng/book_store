@@ -166,7 +166,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           },
                         ),
 
-                        SizedBox(height: 20.sp),
+                        SizedBox(height: 20.h),
 
                         Text(
                           LocaleKeys.signUpOption.tr(),
@@ -174,7 +174,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           textAlign: TextAlign.center,
                         ),
 
-                        SizedBox(height: 15.sp),
+                        SizedBox(height: 15.h),
 
                         Column(
                           children: [
@@ -184,26 +184,26 @@ class _SignupScreenState extends State<SignupScreen> {
                               },
                               icon: Image.asset(
                                 'assets/images/google.png',
-                                width: 24,
-                                height: 24,
+                                width: 24.w,
+                                height: 24.h,
                               ),
                               label: const Text("Google"),
                             ),
 
-                            SizedBox(height: 15.sp),
+                            SizedBox(height: 15.h),
 
                             ElevatedButton.icon(
                               onPressed: () {},
                               icon: Image.asset(
                                 'assets/images/Facebook.png',
-                                width: 24,
-                                height: 24,
+                                width: 24.w,
+                                height: 24.h,
                               ),
                               label: const Text("Facebook"),
                             ),
                           ],
                         ),
-                        SizedBox(height: 100.sp),
+                        SizedBox(height: 100.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

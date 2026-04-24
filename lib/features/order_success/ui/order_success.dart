@@ -35,7 +35,7 @@ class OrderSuccess extends StatelessWidget{
                     children: [
                       Container(
                         width: 145.w,
-                        height: 145.w,
+                        height: 145.h,
                         decoration: const BoxDecoration(
                           color: Color(0xff18C07A),
                           shape: BoxShape.circle,
@@ -57,7 +57,7 @@ class OrderSuccess extends StatelessWidget{
                         ),
                       ),
 
-                      SizedBox(height: 22.sp),
+                      SizedBox(height: 22.h),
 
                       Text(
                         "Your order will be delivered soon."

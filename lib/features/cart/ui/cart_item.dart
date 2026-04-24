@@ -31,7 +31,7 @@ class CartItemWidget extends StatelessWidget {
         child: const Icon(Icons.delete, color: Colors.white),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 20),
+        padding:  EdgeInsets.only(bottom: 20.h),
         child: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -40,16 +40,16 @@ class CartItemWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                   child: Image.network(
                     item.imageUrl,
-                    width: 80,
-                    height: 100,
+                    width: 80.w,
+                    height: 100.h,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
-                        width: 80,
-                        height: 100,
+                        width: 80.w,
+                        height: 100.h,
                         color: Colors.grey[300],
                         child: const Icon(Icons.book, color: Colors.grey),
       
@@ -58,7 +58,7 @@ class CartItemWidget extends StatelessWidget {
                   ),
                 ),
       
-                const SizedBox(width: 16),
+                 SizedBox(width: 16.w),
       
                 Expanded(
                   child: Column(
@@ -66,26 +66,26 @@ class CartItemWidget extends StatelessWidget {
                     children: [
                       Text(
                         item.name,
-                        style: const TextStyle(
-                          fontSize: 16,
+                        style: TextStyle(
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 6),
+                       SizedBox(height: 6.h),
                       Text(
                         "₹${item.price.toStringAsFixed(0)}",
                         style: TextStyle(
                           color: Colors.grey[600],
                         ),
                       ),
-                      const SizedBox(height: 16),
+                       SizedBox(height: 16.h),
       
                       Container(
-                        height: 36,
+                        height: 36.h,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
+                          borderRadius: BorderRadius.circular(6.r),
                           border: Border.all(color: Colors.grey[300]!),
                         ),
                         child: Row(
@@ -100,14 +100,14 @@ class CartItemWidget extends StatelessWidget {
                                   );
                                 }
                               },
-                              child: const SizedBox(
-                                width: 36,
-                                height: 36,
+                              child: SizedBox(
+                                width: 36.w,
+                                height: 36.h,
                                 child: Icon(Icons.remove, size: 18),
                               ),
                             ),
                             Container(
-                              width: 40,
+                              width: 40.w,
                               alignment: Alignment.center,
                               child: Text(item.quantity.toString()),
                             ),
@@ -118,9 +118,9 @@ class CartItemWidget extends StatelessWidget {
                                   item.quantity + 1,
                                 );
                               },
-                              child: const SizedBox(
-                                width: 36,
-                                height: 36,
+                              child: SizedBox(
+                                width: 36.w,
+                                height: 36.h,
                                 child: Icon(Icons.add, size: 18),
                               ),
                             ),
@@ -141,12 +141,12 @@ class CartItemWidget extends StatelessWidget {
                   context.read<CartCubit>().removeFromCartById(item.id);
                 },
                 child: Container(
-                  width: 28,
-                  height: 28,
+                  width: 28.w,
+                  height: 28.h,
                   decoration: BoxDecoration(
                     color: Colors.red,
                     shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white, width: 2),
+                    border: Border.all(color: Colors.white, width: 2.w),
                   ),
                   child: const Icon(
                     Icons.close,

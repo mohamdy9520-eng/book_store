@@ -144,7 +144,7 @@ class ProfileScreen extends StatelessWidget {
             style: TextStyle(fontSize: 14.sp),
           ),
           const Spacer(),
-          const Icon(Icons.arrow_forward_ios, size: 16),
+           Icon(Icons.arrow_forward_ios, size: 16.sp),
         ],
       ),
     );

@@ -22,7 +22,7 @@ class PasswordChanged extends StatelessWidget {
 
               Container(
                 width: 100.w,
-                height: 100.w,
+                height: 100.h,
                 decoration: BoxDecoration(
                   color: Colors.green,
                   shape: BoxShape.circle,

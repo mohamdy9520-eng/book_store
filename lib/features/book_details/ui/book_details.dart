@@ -146,7 +146,7 @@ class BookDetailsBody extends StatelessWidget {
         border: Border.all(color: Colors.grey.shade300),
       ),
       child: IconButton(
-        icon: Icon(icon, size: 18),
+        icon: Icon(icon, size: 18.sp),
         onPressed: onTap,
       ),
     );

@@ -41,7 +41,7 @@ class ProfileItem extends StatelessWidget {
 
             const Spacer(),
 
-            const Icon(Icons.arrow_forward_ios, size: 16),
+             Icon(Icons.arrow_forward_ios, size: 16.sp),
           ],
         ),
       ),

@@ -169,8 +169,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {},
                       icon: Image.asset(
                         'assets/images/google.png',
-                        width: 24,
-                        height: 24,
+                        width: 24.w,
+                        height: 24.h,
                       ),
                       label: const Text("Google"),
                       style: ElevatedButton.styleFrom(
@@ -183,8 +183,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {},
                       icon: Image.asset(
                         'assets/images/Facebook.png',
-                        width: 24,
-                        height: 24,
+                        width: 24.w,
+                        height: 24.h,
                       ),
                       label: const Text("Facebook"),
                       style: ElevatedButton.styleFrom(
